@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from "axios";
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
-import {selectedProducts, removedSelectedProducts} from '../redux/actions/productActions';
+import {fetchProduct, removedSelectedProducts} from '../redux/actions/productActions';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 const ProductDetail = () => {
@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const dispatch= useDispatch();
   console.log(product);
 
-  const fetchProductDetail = async () => {
+  /*const fetchProductDetail = async () => {
     //console.log(productid);
     //console.log(`https://fakestoreapi.com/products/${productid}`);
     const response = await axios.get(`https://fakestoreapi.com/products/${productid}`).catch((err) => {
@@ -21,10 +21,10 @@ const ProductDetail = () => {
     });
     console.log(response.data);
     dispatch(selectedProducts(response.data));
-  };
+  };*/
 
   useEffect(() => {
-    if(productid && productid!=="") fetchProductDetail();
+    if(productid && productid!=="") dispatch(fetchProduct(productid));
     return () => {
       dispatch(removedSelectedProducts()); // return will render once the product id destroyed which means 
       //once we go back from product page, then it will update the state as empty.
